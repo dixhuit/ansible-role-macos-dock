@@ -1,0 +1,21 @@
+dependencies:
+  - danbohea.homebrew
+
+galaxy_info:
+  author: danbohea
+  description: Installs Sketch, supporting tools & plugins on macOS.
+  license: MIT
+  min_ansible_version: 2.0
+  # In the absence of a 'macOS' platform option:
+  platforms:
+  - name: GenericUNIX
+    versions:
+    - all
+    - any
+  galaxy_tags:
+    - cask
+    - homebrew
+    - mac
+    - macsible
+    - osx
+    - sketch
