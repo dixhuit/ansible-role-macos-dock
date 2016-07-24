@@ -1,9 +1,8 @@
-dependencies:
-  - danbohea.homebrew
+dependencies: []
 
 galaxy_info:
   author: danbohea
-  description: Installs Sketch, supporting tools & plugins on macOS.
+  description: Control which apps appear in your macOS Dock.
   license: MIT
   min_ansible_version: 2.0
   # In the absence of a 'macOS' platform option:
@@ -13,9 +12,8 @@ galaxy_info:
     - all
     - any
   galaxy_tags:
-    - cask
-    - homebrew
+    - dock
     - mac
+    - macos
     - macsible
     - osx
-    - sketch
