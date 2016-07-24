@@ -1,5 +1,7 @@
 # Ansible role: macOS Dock items
 
+[![Build Status](https://travis-ci.org/danbohea/ansible-role-dock-items.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-dock-items)
+
 Control which apps appear in your Dock and in what order.
 
 ## Requirements
