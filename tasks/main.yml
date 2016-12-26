@@ -2,9 +2,8 @@
 
 # Command uses `basename` to return only filenames (excludes paths)
 # Source: http://superuser.com/a/620591
-# TODO: Would this find Terminal.app in /Applications/Utilities?
 - name: Get list of .app files in /Applications
-  command: find . -depth 1 -name "*.app" -exec basename {} \;
+  shell: find . -name '*.app' -maxdepth 2 | sed 's/^\.\///'
   args:
     chdir: /Applications
   register: installed_apps
