@@ -1,7 +1,7 @@
 ---
 
-# Command uses `basename` to return only filenames (excludes paths)
-# Source: http://superuser.com/a/620591
+# Shell command returns only filenames (excluding paths) from within
+# /Applications or one further level down.
 - name: Get list of .app files in /Applications
   shell: find . -name '*.app' -maxdepth 2 | sed 's/^\.\///'
   args:
