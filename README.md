@@ -17,12 +17,11 @@ All role default variables are listed below along with their respective default 
 dock_apps:
   - Google Chrome.app
   - Calendar.app
-  - Atom.app
-  - Wunderlist.app
   - System Preferences.app
+  - Terminal.app
 ```
 
-A list of apps that you wish to appear in your Dock and in what order. You must include the `.app` extension. Only apps that are present within /Applications will be added.
+A list of apps that you wish to appear in your Dock and in what order. You must include the `.app` extension. Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
 
 ## Dependencies
 
@@ -46,4 +45,4 @@ MIT
 
 ## Author Information
 
-This role was created by [Dan Bohea](http://bohea.co.uk) primarily for use with [Macsible](https://github.com/danbohea/macsible).
+This role was created by [Dan Bohea](http://bohea.co.uk) primarily for use with [Macsible](https://github.com/macsible/macsible).
