@@ -4,6 +4,7 @@
 
 Control which apps appear in your Dock and in what order.
 
+
 ## Requirements
 
 - macOS 10.10+
@@ -23,6 +24,7 @@ dock_apps:
 
 A list of apps that you wish to appear in your Dock and in what order. You must include the `.app` extension. Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
 
+
 ## Dependencies
 
 None.
@@ -37,6 +39,7 @@ None.
   roles:
     - role: ansible-role-dock-items
 ```
+
 
 ## License
 
