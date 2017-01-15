@@ -1,22 +1,15 @@
 ---
 
 # https://docs.travis-ci.com/user/osx-ci-environment
-
+language: objective-c
 matrix:
   include:
     # macOS 10.12
-    - os: osx
-      osx_image: xcode8.2
+    - osx_image: xcode8.2
     # macOS 10.11
-    - os: osx
-      osx_image: xcode8
-    # macOS 10.10
-    - os: osx
-      osx_image: xcode6.4
-  allow_failures:
+    - osx_image: xcode8
     # macOS 10.10
     - osx_image: xcode6.4
-  fast_finish: true
 
 install:
   # Debug info
@@ -39,7 +32,7 @@ script:
   - ansible-playbook tests/test.yml -i tests/inventory --connection=local
 
   # Idempotence test (run test playbook again & check output)
-  # TODO: This role is particularly idempotent right now.
+  # TODO: This role isn't particularly idempotent right now.
   # - >
   #   ansible-playbook tests/test.yml -i tests/inventory --connection=local
   #   | grep -q 'changed=0.*failed=0'
