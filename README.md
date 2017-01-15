@@ -2,12 +2,12 @@
 
 [![Build Status](https://travis-ci.org/danbohea/ansible-role-dock-items.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-dock-items)
 
-Control which apps appear in your Dock and in what order.
+Control which apps appear in your macOS Dock and in what order.
 
 
 ## Requirements
 
-- macOS 10.10+
+- macOS 10.10, 10.11 or 10.12
 
 
 ## Role Variables
