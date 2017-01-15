@@ -4,13 +4,14 @@ galaxy_info:
   author: danbohea
   description: Control which apps appear in your macOS Dock.
   license: MIT
-  min_ansible_version: 2.0
+  min_ansible_version: 2.1
   # In the absence of a 'macOS' platform option:
   platforms:
-  - name: GenericUNIX
+  - name: MacOSX
     versions:
-    - all
-    - any
+    - '10.10'
+    - '10.11'
+    - '10.12'
   galaxy_tags:
     - dock
     - mac
