@@ -14,7 +14,7 @@ Control which apps appear in your macOS Dock and in what order.
 
 All role default variables are listed below along with their respective default values.
 
-```
+```yaml
 dock_apps:
   - Google Chrome.app
   - Calendar.app
@@ -32,7 +32,7 @@ None.
 
 ## Example Playbook
 
-```
+```yaml
 - hosts: macbook
   connection: local
 
