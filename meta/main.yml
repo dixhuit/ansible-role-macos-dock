@@ -2,10 +2,9 @@ dependencies: []
 
 galaxy_info:
   author: danbohea
-  description: Control which apps appear in your macOS Dock.
+  description: Configure the macOS Dock including which items appear in it and in what order.
   license: MIT
   min_ansible_version: 2.1
-  # In the absence of a 'macOS' platform option:
   platforms:
   - name: MacOSX
     versions:

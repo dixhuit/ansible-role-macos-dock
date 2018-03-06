@@ -1,5 +1,43 @@
 ---
 
+# Credit: https://mths.be/macos
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+- name: Close any open System Preferences panes
+  shell: osascript -e 'tell application "System Preferences" to quit'
+  changed_when: false
+
+- name: Set the icon size of Dock items
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: 60
+  notify:
+    - killall Dock
+
+- name: Set Dock orientation
+  osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: "bottom"
+  notify:
+    - killall Dock
+
+- name: Set whether the Dock automatically hides
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
+  notify:
+    - killall Dock
+
+# Dock items
+# ----------
+
 # Shell command returns only filenames (excluding paths) from within
 # /Applications or one further level down.
 - name: Get list of .app files in /Applications

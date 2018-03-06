@@ -1,28 +1,30 @@
-# Ansible role: macOS Dock items
+# Ansible role: macOS Dock
 
 [![Build Status](https://travis-ci.org/danbohea/ansible-role-dock-items.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-dock-items)
 
-Control which apps appear in your macOS Dock and in what order.
+Configure the macOS Dock including which items appear in it and in what order.
 
 
 ## Requirements
 
+- Ansible >= 2.1
 - macOS 10.10, 10.11 or 10.12
 
 
 ## Role Variables
 
-All role default variables are listed below along with their respective default values.
-
 ```yaml
+# The apps that you wish to appear in your Dock and in what order.
+# Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
+# Note:
+# - List order will effect order in Dock.
+# - Filenames must include .app extension.
 dock_apps:
   - Google Chrome.app
   - Calendar.app
   - System Preferences.app
   - Terminal.app
 ```
-
-A list of apps that you wish to appear in your Dock and in what order. You must include the `.app` extension. Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
 
 
 ## Dependencies
@@ -33,11 +35,10 @@ None.
 ## Example Playbook
 
 ```yaml
-- hosts: macbook
-  connection: local
+- hosts: all
 
   roles:
-    - role: ansible-role-dock-items
+    - ansible-role-dock-items
 ```
 
 

@@ -1,7 +1,10 @@
 ---
 
-# List order will effect order in Dock.
-# Filenames must include .app extension.
+# The apps that you wish to appear in your Dock and in what order.
+# Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
+# Note:
+# - List order will effect order in Dock.
+# - Filenames must include .app extension.
 dock_apps:
   - Google Chrome.app
   - Calendar.app
