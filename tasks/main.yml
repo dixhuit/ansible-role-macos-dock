@@ -13,7 +13,7 @@
     domain: com.apple.dock
     key: tilesize
     type: float
-    value: 60
+    value: "{{ macos_dock_icon_size }}"
   notify:
     - killall Dock
 
@@ -22,7 +22,7 @@
     domain: com.apple.dock
     key: orientation
     type: string
-    value: "bottom"
+    value: "{{ macos_dock_orientation }}"
   notify:
     - killall Dock
 
@@ -31,7 +31,7 @@
     domain: com.apple.dock
     key: autohide
     type: bool
-    value: true
+    value: "{{ macos_dock_autohide }}"
   notify:
     - killall Dock
 

@@ -10,3 +10,13 @@ macos_dock_apps:
   - Calendar.app
   - System Preferences.app
   - Terminal.app
+
+# Whether the Dock automatically hides.
+macos_dock_autohide: true
+
+# The size of icons in the Dock.
+macos_dock_icon_size: 60
+
+# The orientation of the Dock.
+# "left | "bottom" | "right"
+macos_dock_orientation: "bottom"

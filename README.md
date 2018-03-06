@@ -14,6 +14,7 @@ Configure the macOS Dock including which items appear in it and in what order.
 ## Role Variables
 
 ```yaml
+
 # The apps that you wish to appear in your Dock and in what order.
 # Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
 # Note:
@@ -24,6 +25,17 @@ macos_dock_apps:
   - Calendar.app
   - System Preferences.app
   - Terminal.app
+
+# Whether the Dock automatically hides.
+macos_dock_autohide: true
+
+# The size of icons in the Dock.
+macos_dock_icon_size: 60
+
+# The orientation of the Dock.
+# "left | "bottom" | "right"
+macos_dock_orientation: "bottom"
+
 ```
 
 
