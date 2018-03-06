@@ -19,7 +19,7 @@ Configure the macOS Dock including which items appear in it and in what order.
 # Note:
 # - List order will effect order in Dock.
 # - Filenames must include .app extension.
-dock_apps:
+macos_dock_apps:
   - Google Chrome.app
   - Calendar.app
   - System Preferences.app
