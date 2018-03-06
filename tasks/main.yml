@@ -8,6 +8,15 @@
   shell: osascript -e 'tell application "System Preferences" to quit'
   changed_when: false
 
+- name: Set whether the Dock automatically hides
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "{{ macos_dock_autohide }}"
+  notify:
+    - killall Dock
+
 - name: Set the icon size of Dock items
   osx_defaults:
     domain: com.apple.dock
@@ -23,15 +32,6 @@
     key: orientation
     type: string
     value: "{{ macos_dock_orientation }}"
-  notify:
-    - killall Dock
-
-- name: Set whether the Dock automatically hides
-  osx_defaults:
-    domain: com.apple.dock
-    key: autohide
-    type: bool
-    value: "{{ macos_dock_autohide }}"
   notify:
     - killall Dock
 
