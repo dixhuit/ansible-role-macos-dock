@@ -8,7 +8,7 @@ Configure the macOS Dock including which items appear in it and in what order.
 ## Requirements
 
 - Ansible >= 2.1
-- macOS 10.10, 10.11 or 10.12
+- macOS 10.13, 10.12, 10.11 or 10.10
 
 
 ## Role Variables
