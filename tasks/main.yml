@@ -59,7 +59,7 @@
 
 - name: Combine lists of apps
   set_fact:
-    installed_apps: "{{ apps_in_applications + apps_in_user_applications }}"
+    installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
 
 - name: Debug installed_apps
   debug:
@@ -70,5 +70,5 @@
   command: >
     defaults write com.apple.dock persistent-apps -array-add
     '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-  with_items: "{{ macos_dock_apps | intersect(installed_apps.stdout_lines) }}"
+  with_items: "{{ macos_dock_apps | intersect(installed_apps) }}"
   notify: killall Dock
