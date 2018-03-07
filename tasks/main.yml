@@ -76,12 +76,12 @@
   when: user_applications_dir.stat.isdir
   changed_when: false
 
-- name: Combine lists of apps
+- name: ~/Applications exists, combine both lists of apps 
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
   when: user_applications_dir.stat.isdir
 
-- name: ~/Applications doesn't exist, just use list apps in /Applications
+- name: ~/Applications doesn't exist, just use apps in /Applications
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
   when: user_applications_dir.stat.isdir == false
