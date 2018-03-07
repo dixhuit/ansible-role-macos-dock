@@ -16,12 +16,14 @@ matrix:
     - osx_image: xcode6.4
 
 install:
+  # TODO: Remove this and add logic to Ansible tasks instead.
+  # Ensure ~/Applications exists
+  - mkdir -p ~/Applications
   # Install pip
   - sudo easy_install pip
   # Install Ansible
   - sudo pip install ansible --quiet
   # Debug info
-  - ls -l ~
   - python --version
   - pip --version
   - ansible --version
