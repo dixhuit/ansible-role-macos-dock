@@ -25,3 +25,4 @@ macos_dock_apps:
   - /Applications/Calendar.app
   - /Applications/System Preferences.app
   - "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
+  - "/Users/{{ ansible_user_id }}/Applications/Dummy.app"
