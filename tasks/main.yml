@@ -73,18 +73,18 @@
 - name: Get list of apps in ~/Applications
   shell: find ~/Applications -name '*.app' -maxdepth 2
   register: apps_in_user_applications
-  when: user_applications_dir.stat.isdir
+  when: user_applications_dir.stat.exists
   changed_when: false
 
 - name: ~/Applications exists, combine both lists of apps 
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
-  when: user_applications_dir.stat.isdir
+  when: user_applications_dir.stat.exists
 
 - name: ~/Applications doesn't exist, just use apps in /Applications
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
-  when: user_applications_dir.stat.isdir == false
+  when: user_applications_dir.stat.exists == false
 
 - name: Debug installed_apps
   debug:
