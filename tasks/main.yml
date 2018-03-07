@@ -47,16 +47,16 @@
 # TODO: Add support for non-app Dock items such as directories.
 # TODO: Set -maxdepth via a default variable.
 
-# Lists full paths to all apps in /Applications or one further directory down.
-- name: Get list of apps in /Applications
-  shell: find /Applications -name '*.app' -maxdepth 2
-  register: apps_in_applications
-  changed_when: false
-
 - name: Get info on ~/Applications
   stat:
     path: "/Users/{{ ansible_user_id }}/Applications"
   register: user_applications_dir
+  changed_when: false
+
+# Lists full paths to all apps in /Applications or one further directory down.
+- name: Get list of apps in /Applications
+  shell: find /Applications -name '*.app' -maxdepth 2
+  register: apps_in_applications
   changed_when: false
 
 # Lists full paths to all apps in ~/Applications or one further directory down.
