@@ -1,28 +1,53 @@
-# Ansible role: macOS Dock items
+# Ansible role: macOS Dock
 
 [![Build Status](https://travis-ci.org/danbohea/ansible-role-dock-items.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-dock-items)
 
-Control which apps appear in your macOS Dock and in what order.
+Configure the macOS Dock including which items appear in it and in what order.
 
 
 ## Requirements
 
-- macOS 10.10, 10.11 or 10.12
+- Ansible >= 2.1
+- macOS 10.13, 10.12, 10.11 or 10.10
 
 
-## Role Variables
-
-All role default variables are listed below along with their respective default values.
+## Role variables
 
 ```yaml
-dock_apps:
-  - Google Chrome.app
-  - Calendar.app
-  - System Preferences.app
-  - Terminal.app
-```
 
-A list of apps that you wish to appear in your Dock and in what order. You must include the `.app` extension. Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
+# Whether the Dock automatically hides.
+macos_dock_autohide: true
+
+# The size of icons in the Dock.
+macos_dock_icon_size: 60
+
+# The orientation of the Dock.
+# "left | "bottom" | "right"
+macos_dock_orientation: "bottom"
+
+# A list of apps that you wish to appear in the Dock and in what order.
+# The Dock item list will not be altered if this list is left empty.
+# 
+# Supported directories for apps:
+# - /Applications
+# - /Users/[username]/Applications
+# 
+# Notes:
+# - Use absolute paths to files.
+# - List order affects order in Dock.
+# - {{ ansible_user_id }} returns the username of the *target* system
+#   (you must surround the path in quotes to use this).
+#   
+# Examples:
+# - /Applications/System Preferences.app
+# - /Applications/Utilities/Activity Monitor.app
+# - "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
+macos_dock_apps: []
+
+# Max directory depth when checking for installed apps.
+macos_dock_apps_dir_maxdepth: 2
+
+```
 
 
 ## Dependencies
@@ -30,14 +55,19 @@ A list of apps that you wish to appear in your Dock and in what order. You must 
 None.
 
 
-## Example Playbook
+## Example playbook
 
 ```yaml
-- hosts: macbook
-  connection: local
-
+- hosts: all
   roles:
-    - role: ansible-role-dock-items
+    - { 
+      role: ansible-role-dock-items,
+      macos_dock_apps: [
+        /Applications/Utilities/Activity Monitor.app,
+        /Applications/System Preferences.app,
+        "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
+        ]
+      }
 ```
 
 
@@ -46,6 +76,6 @@ None.
 MIT
 
 
-## Author Information
+## Author information
 
 This role was created by [Dan Bohea](http://bohea.co.uk) primarily for use with [Macsible](https://github.com/macsible/macsible).

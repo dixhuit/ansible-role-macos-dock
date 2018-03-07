@@ -2,4 +2,11 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-role-dock-items
+    - { 
+      role: ansible-role-dock-items,
+      macos_dock_apps: [
+        /Applications/Utilities/Activity Monitor.app,
+        /Applications/System Preferences.app,
+        "/Users/{{ ansible_user_id }}/Applications/Dummy.app"
+        ]
+      }

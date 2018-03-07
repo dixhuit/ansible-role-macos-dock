@@ -1,22 +1,83 @@
 ---
 
-# Shell command returns only filenames (excluding paths) from within
-# /Applications or one further level down.
-- name: Get list of .app files in /Applications
-  shell: find . -name '*.app' -maxdepth 2 | sed 's/^\.\///'
-  args:
-    chdir: /Applications
-  register: installed_apps
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+- name: Close any open System Preferences panes
+  shell: osascript -e 'tell application "System Preferences" to quit'
   changed_when: false
 
-- name: Wipe all default app icons from the Dock
+- name: Set whether the Dock automatically hides
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "{{ macos_dock_autohide }}"
+  notify:
+    - killall Dock
+
+- name: Set the icon size of Dock items
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: "{{ macos_dock_icon_size }}"
+  notify:
+    - killall Dock
+
+- name: Set Dock orientation
+  osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: "{{ macos_dock_orientation }}"
+  notify:
+    - killall Dock
+
+# Dock items
+# ----------
+
+# TODO: Read/store the current Dock items so that we can compare later and make the role idempotent.
+# TODO: Add support for non-app Dock items such as directories.
+
+- name: Get info on ~/Applications
+  stat:
+    path: "/Users/{{ ansible_user_id }}/Applications"
+  register: user_applications_dir
+  changed_when: false
+
+# Lists full paths to all apps in /Applications or one further directory down.
+- name: Get list of apps in /Applications
+  shell: "find /Applications -name '*.app' -maxdepth {{ macos_dock_apps_dir_maxdepth }}"
+  register: apps_in_applications
+  changed_when: false
+
+# Lists full paths to all apps in ~/Applications or one further directory down.
+- name: Get list of apps in ~/Applications
+  shell: "find ~/Applications -name '*.app' -maxdepth {{ macos_dock_apps_dir_maxdepth }}"
+  register: apps_in_user_applications
+  when: user_applications_dir.stat.exists
+  changed_when: false
+
+- name: ~/Applications exists, combine both lists of apps 
+  set_fact:
+    installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
+  when: user_applications_dir.stat.exists
+
+- name: ~/Applications doesn't exist, just use apps in /Applications
+  set_fact:
+    installed_apps: "{{ apps_in_applications.stdout_lines }}"
+  when: user_applications_dir.stat.exists == false
+
+- name: Remove current persistent apps from the Dock
   command: defaults write com.apple.dock persistent-apps -array
   notify: killall Dock
+  when: macos_dock_apps
 
-# - Only adds apps to the Dock that are already installed
+# Only adds apps to the Dock that exist on the system.
 - name: Add applications to Dock
   command: >
     defaults write com.apple.dock persistent-apps -array-add
-    '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-  with_items: "{{ dock_apps | intersect(installed_apps.stdout_lines) }}"
+    '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+  with_items: "{{ macos_dock_apps | intersect(installed_apps) }}"
   notify: killall Dock
+  when: macos_dock_apps
