@@ -12,13 +12,14 @@ macos_dock_orientation: "bottom"
 
 # The apps that you wish to appear in your Dock and in what order.
 # Only apps that are present directly within /Applications and optionally one 
-# level further nested will be added
-# (so apps located in /Applications/Utilities should work).
+# level further nested will be added.
+# E.g. Apps located in /Applications/Utilities are supported.
 # Note:
-# - List order affects order in Dock.
 # - Filenames must include the '.app' extension.
+# - Full paths are required.
+# - List order affects order in Dock.
 macos_dock_apps:
-  - Activity Monitor.app
-  - Firefox.app
-  - Calendar.app
-  - System Preferences.app
+  - /Applications/Utilities/Activity Monitor.app
+  - /Applications/Firefox.app
+  - /Applications/Calendar.app
+  - /Applications/System Preferences.app

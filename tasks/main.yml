@@ -48,16 +48,14 @@
 # Shell command returns only filenames (excluding paths) from within
 # /Applications or one further level down.
 - name: Get list of .app files in /Applications
-  shell: find . -name '*.app' -maxdepth 2 | sed 's/^\.\///'
-  args:
-    chdir: /Applications
+  shell: find /Applications -name '*.app' -maxdepth 2
   register: installed_apps
   changed_when: false
 
-# - Only adds apps to the Dock that are already installed
+# Only adds apps to the Dock that are already installed
 - name: Add applications to Dock
   command: >
     defaults write com.apple.dock persistent-apps -array-add
-    '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+    '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
   with_items: "{{ macos_dock_apps | intersect(installed_apps.stdout_lines) }}"
   notify: killall Dock
