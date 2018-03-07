@@ -59,7 +59,7 @@
 
 - name: Combine lists of apps
   set_fact:
-    installed_apps: "{{ apps_in_applications }} + {{ apps_in_user_applications }}"
+    installed_apps: "{{ apps_in_applications + apps_in_user_applications }}"
 
 - name: Debug installed_apps
   debug:
