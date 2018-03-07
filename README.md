@@ -57,12 +57,7 @@ None.
 
 ## Example Playbook
 
-```yaml
-- hosts: all
-
-  roles:
-    - ansible-role-dock-items
-```
+See [tests/test.yml](tests/test.yml).
 
 
 ## License
