@@ -38,13 +38,8 @@
 # Dock items
 # ----------
 
-# TODO: Only alter the Dock if macos_dock_apps is not empty.
 # TODO: Read/store the current Dock items so that we can compare later and make the role idempotent.
 # TODO: Add support for non-app Dock items such as directories.
-
-- name: Remove current persistent apps from the Dock
-  command: defaults write com.apple.dock persistent-apps -array
-  notify: killall Dock
 
 - name: Get info on ~/Applications
   stat:
@@ -75,6 +70,11 @@
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
   when: user_applications_dir.stat.exists == false
 
+- name: Remove current persistent apps from the Dock
+  command: defaults write com.apple.dock persistent-apps -array
+  notify: killall Dock
+  when: macos_dock_apps
+
 # Only adds apps to the Dock that exist on the system.
 - name: Add applications to Dock
   command: >
@@ -82,3 +82,4 @@
     '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
   with_items: "{{ macos_dock_apps | intersect(installed_apps) }}"
   notify: killall Dock
+  when: macos_dock_apps

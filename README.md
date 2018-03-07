@@ -26,6 +26,7 @@ macos_dock_icon_size: 60
 macos_dock_orientation: "bottom"
 
 # A list of apps that you wish to appear in the Dock and in what order.
+# The Dock item list will not be altered if this list is left empty.
 # 
 # Supported directories for apps:
 # - /Applications
