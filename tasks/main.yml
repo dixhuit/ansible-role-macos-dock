@@ -38,6 +38,8 @@
 # Dock items
 # ----------
 
+# TODO: Read/store the current Dock items so that we can compare later and make the role idempotent.
+
 - name: Remove current persistent apps from the Dock
   command: defaults write com.apple.dock persistent-apps -array
   notify: killall Dock
@@ -45,29 +47,17 @@
 # TODO: Add support for non-app Dock items such as directories.
 # TODO: Set -maxdepth via a default variable.
 
-# # Lists full paths to all apps in /Applications & ~/Applications.
-# - name: Get list of apps in /Applications & ~/Applications
-#   shell: "find {{ item }} -name '*.app' -maxdepth 2"
-#   with_items:
-#      - /Applications
-#      - ~/Applications
-#   register: installed_apps
-#   changed_when: false
-
 # Lists full paths to all apps in /Applications or one further directory down.
 - name: Get list of apps in /Applications
   shell: find /Applications -name '*.app' -maxdepth 2
   register: apps_in_applications
   changed_when: false
 
-- name: Ansible check file exists example.
+- name: Get info on ~/Applications
   stat:
     path: "/Users/{{ ansible_user_id }}/Applications"
   register: user_applications_dir
-
-- name: Debug user_applications_dir
-  debug:
-    var: user_applications_dir
+  changed_when: false
 
 # Lists full paths to all apps in ~/Applications or one further directory down.
 - name: Get list of apps in ~/Applications
@@ -85,14 +75,6 @@
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
   when: user_applications_dir.stat.exists == false
-
-- name: Debug installed_apps
-  debug:
-    var: installed_apps
-    
-# - name: Debug installed_apps.stdout_lines
-#   debug:
-#     var: installed_apps.stdout_lines
 
 # Only adds apps to the Dock that exist on the system.
 - name: Add applications to Dock
