@@ -45,21 +45,30 @@
 # TODO: Add support for non-app Dock items such as directories.
 # TODO: Set -maxdepth via a default variable.
 
-# Lists full paths to all apps in /Applications or one further directory down.
-- name: Get list of apps in /Applications
-  shell: find /Applications -name '*.app' -maxdepth 2
-  register: apps_in_applications
+# Lists full paths to all apps in /Applications & ~/Applications.
+- name: Get list of apps in /Applications & ~/Applications
+  shell: "find {{ item }} -name '*.app' -maxdepth 2"
+  with_items:
+     - /Applications
+     - ~/Applications
+  register: installed_apps
   changed_when: false
 
-# Lists full paths to all apps in ~/Applications or one further directory down.
-- name: Get list of apps in ~/Applications
-  shell: find ~/Applications -name '*.app' -maxdepth 2
-  register: apps_in_user_applications
-  changed_when: false
+# # Lists full paths to all apps in /Applications or one further directory down.
+# - name: Get list of apps in /Applications
+#   shell: find /Applications -name '*.app' -maxdepth 2
+#   register: apps_in_applications
+#   changed_when: false
+# 
+# # Lists full paths to all apps in ~/Applications or one further directory down.
+# - name: Get list of apps in ~/Applications
+#   shell: find ~/Applications -name '*.app' -maxdepth 2
+#   register: apps_in_user_applications
+#   changed_when: false
 
-- name: Combine lists of apps
-  set_fact:
-    installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
+# - name: Combine lists of apps
+#   set_fact:
+#     installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
 
 - name: Debug installed_apps
   debug:
