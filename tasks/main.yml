@@ -73,11 +73,15 @@
 - name: Debug installed_apps
   debug:
     var: installed_apps
+    
+- name: Debug installed_apps.stdout_lines
+  debug:
+    var: installed_apps.stdout_lines
 
 # Only adds apps to the Dock that exist on the system.
 - name: Add applications to Dock
   command: >
     defaults write com.apple.dock persistent-apps -array-add
     '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-  with_items: "{{ macos_dock_apps | intersect(installed_apps) }}"
+  with_items: "{{ macos_dock_apps | intersect(installed_apps.stdout_lines) }}"
   notify: killall Dock
