@@ -21,6 +21,7 @@ install:
   # Install Ansible
   - sudo pip install ansible --quiet
   # Debug info
+  - ls -l ~
   - python --version
   - pip --version
   - ansible --version
