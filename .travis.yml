@@ -18,8 +18,8 @@ matrix:
 install:
   # TODO: Remove this and add logic to Ansible tasks instead.
   # Ensure ~/Applications exists
-  - mkdir -p ~/Applications
-  - touch ~/Applications/Dummy.app
+  # - mkdir -p ~/Applications
+  # - touch ~/Applications/Dummy.app
   # Install pip
   - sudo easy_install pip
   # Install Ansible
