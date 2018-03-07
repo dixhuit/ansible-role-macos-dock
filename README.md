@@ -25,19 +25,26 @@ macos_dock_icon_size: 60
 # "left | "bottom" | "right"
 macos_dock_orientation: "bottom"
 
-# The apps that you wish to appear in your Dock and in what order.
-# Only apps that are present directly within /Applications and optionally one 
-# level further nested will be added.
-# E.g. Apps located in /Applications/Utilities are supported.
-# Note:
-# - Filenames must include the '.app' extension.
-# - Full paths are required.
+# A list of apps that you wish to appear in the Dock and in what order.
+# 
+# Supported directories for apps:
+# - /Applications
+# - /Users/[username]/Applications
+# 
+# Notes:
+# - Use absolute paths to files.
 # - List order affects order in Dock.
-macos_dock_apps:
-  - /Applications/Utilities/Activity Monitor.app
-  - /Applications/Firefox.app
-  - /Applications/Calendar.app
-  - /Applications/System Preferences.app
+# - {{ ansible_user_id }} returns the username of the *target* system
+#   (you must surround the path in quotes to use this).
+#   
+# Examples:
+# - /Applications/System Preferences.app
+# - /Applications/Utilities/Activity Monitor.app
+# - "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
+macos_dock_apps: []
+
+# Max directory depth when checking for installed apps.
+macos_dock_apps_dir_maxdepth: 2
 
 ```
 

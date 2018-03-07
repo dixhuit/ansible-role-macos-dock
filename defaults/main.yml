@@ -10,15 +10,18 @@ macos_dock_icon_size: 60
 # "left | "bottom" | "right"
 macos_dock_orientation: "bottom"
 
-# A list of apps that you wish to appear in your Dock and in what order.
-# Supported directories:
+# A list of apps that you wish to appear in the Dock and in what order.
+# 
+# Supported directories for apps:
 # - /Applications
 # - /Users/[username]/Applications
+# 
 # Notes:
 # - Use absolute paths to files.
 # - List order affects order in Dock.
 # - {{ ansible_user_id }} returns the username of the *target* system
 #   (you must surround the path in quotes to use this).
+#   
 # Examples:
 # - /Applications/System Preferences.app
 # - /Applications/Utilities/Activity Monitor.app
