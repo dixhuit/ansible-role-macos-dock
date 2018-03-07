@@ -38,6 +38,13 @@
 # Dock items
 # ----------
 
+- name: Remove current persistent apps from the Dock
+  command: defaults write com.apple.dock persistent-apps -array
+  notify: killall Dock
+
+# TODO: Add support for ~/Applications.
+# TODO: Add support for non-app Dock items such as directories.
+
 # Shell command returns only filenames (excluding paths) from within
 # /Applications or one further level down.
 - name: Get list of .app files in /Applications
@@ -46,10 +53,6 @@
     chdir: /Applications
   register: installed_apps
   changed_when: false
-
-- name: Wipe all default app icons from the Dock
-  command: defaults write com.apple.dock persistent-apps -array
-  notify: killall Dock
 
 # - Only adds apps to the Dock that are already installed
 - name: Add applications to Dock

@@ -15,18 +15,6 @@ Configure the macOS Dock including which items appear in it and in what order.
 
 ```yaml
 
-# The apps that you wish to appear in your Dock and in what order.
-# Only apps that are present directly within /Applications and optionally one level further down will be added (so apps located in /Applications/Utilities should work).
-# Note:
-# - List order will effect order in Dock.
-# - Filenames must include .app extension.
-macos_dock_apps:
-  - Activity Monitor.app
-  - Firefox.app
-  - Calendar.app
-  - System Preferences.app
-  - Terminal.app
-
 # Whether the Dock automatically hides.
 macos_dock_autohide: true
 
@@ -36,6 +24,19 @@ macos_dock_icon_size: 60
 # The orientation of the Dock.
 # "left | "bottom" | "right"
 macos_dock_orientation: "bottom"
+
+# The apps that you wish to appear in your Dock and in what order.
+# Only apps that are present directly within /Applications and optionally one 
+# level further nested will be added
+# (so apps located in /Applications/Utilities should work).
+# Note:
+# - List order affects order in Dock.
+# - Filenames must include the '.app' extension.
+macos_dock_apps:
+  - Activity Monitor.app
+  - Firefox.app
+  - Calendar.app
+  - System Preferences.app
 
 ```
 
