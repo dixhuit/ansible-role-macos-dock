@@ -11,7 +11,7 @@ Configure the macOS Dock including which items appear in it and in what order.
 - macOS 10.13, 10.12, 10.11 or 10.10
 
 
-## Role Variables
+## Role variables
 
 ```yaml
 
@@ -55,9 +55,20 @@ macos_dock_apps_dir_maxdepth: 2
 None.
 
 
-## Example Playbook
+## Example playbook
 
-See [tests/test.yml](tests/test.yml).
+```yaml
+- hosts: all
+  roles:
+    - { 
+      role: ansible-role-dock-items,
+      macos_dock_apps: [
+        /Applications/Utilities/Activity Monitor.app,
+        /Applications/System Preferences.app,
+        "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
+        ]
+      }
+```
 
 
 ## License
@@ -65,6 +76,6 @@ See [tests/test.yml](tests/test.yml).
 MIT
 
 
-## Author Information
+## Author information
 
 This role was created by [Dan Bohea](http://bohea.co.uk) primarily for use with [Macsible](https://github.com/macsible/macsible).
