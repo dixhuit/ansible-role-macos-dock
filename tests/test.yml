@@ -10,4 +10,4 @@
     ]
 
   roles:
-    - role: ansible-role-macos-dock,
+    - role: ansible-role-macos-dock
