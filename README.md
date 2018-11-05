@@ -1,6 +1,6 @@
 # Ansible role: macOS Dock
 
-[![Build Status](https://travis-ci.org/danbohea/ansible-role-dock-items.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-dock-items)
+[![Build Status](https://travis-ci.org/danbohea/ansible-role-macos-dock.svg?branch=master)](https://travis-ci.org/danbohea/ansible-role-macos-dock)
 
 Configure the macOS Dock including which items appear in it and in what order.
 
