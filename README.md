@@ -59,7 +59,7 @@ macos_dock_apps_dir_maxdepth: 2
 - hosts: all
   roles:
     - { 
-      role: ansible-role-dock-items,
+      role: danbohea.macos-dock,
       macos_dock_apps: [
         /Applications/Utilities/Activity Monitor.app,
         /Applications/System Preferences.app,
