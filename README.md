@@ -59,11 +59,10 @@ macos_dock_apps_dir_maxdepth: 2
 - hosts: all
 
   vars:
-    macos_dock_apps: [
-      /Applications/Utilities/Activity Monitor.app,
-      /Applications/System Preferences.app,
-      "/Users/{{ ansible_user_id }}/Applications/Dummy.app"
-    ]
+    macos_dock_apps:
+      - /Applications/Utilities/Activity Monitor.app
+      - /Applications/System Preferences.app
+      - "/Users/{{ ansible_user_id }}/Applications/Firefox.app"
 
   roles:
     - role: ansible-role-macos-dock,
