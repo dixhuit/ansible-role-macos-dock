@@ -39,6 +39,10 @@
 # TODO: Read/store the current Dock items so that we can compare later and make the role idempotent.
 # TODO: Add support for non-app Dock items such as directories.
 
+- name: Install dockutil
+  homebrew: name=dockutil
+  notify: brew cleanup
+
 - name: Get info on ~/Applications
   stat:
     path: "/Users/{{ ansible_user_id }}/Applications"
@@ -69,15 +73,13 @@
   when: user_applications_dir.stat.exists == false
 
 - name: Remove current persistent apps from the Dock
-  command: defaults write com.apple.dock persistent-apps -array
+  shell: dockutil --remove all --no-restart
   notify: killall Dock
   when: macos_dock_apps
 
 # Only adds apps to the Dock that exist on the system.
 - name: Add applications to Dock
-  command: >
-    defaults write com.apple.dock persistent-apps -array-add
-    '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+  shell: dockutil --add "{{ item }}" --no-restart
   with_items: "{{ macos_dock_apps | intersect(installed_apps) }}"
   notify: killall Dock
   when: macos_dock_apps

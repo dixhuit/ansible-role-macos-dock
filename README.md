@@ -14,7 +14,6 @@ Configure the macOS Dock including which items appear in it and in what order.
 ## Role variables
 
 ```yaml
-
 # Whether the Dock automatically hides.
 macos_dock_autohide: true
 
@@ -33,11 +32,11 @@ macos_dock_orientation: "bottom"
 # - /Users/[username]/Applications
 # 
 # Notes:
-# - Use absolute paths to files.
 # - List order affects order in Dock.
+# - Use absolute paths to files.
 # - {{ ansible_user_id }} returns the username of the *target* system
 #   (you must surround the path in quotes to use this).
-#   
+#
 # Examples:
 # - /Applications/System Preferences.app
 # - /Applications/Utilities/Activity Monitor.app
@@ -46,13 +45,12 @@ macos_dock_apps: []
 
 # Max directory depth when checking for installed apps.
 macos_dock_apps_dir_maxdepth: 2
-
 ```
 
 
 ## Dependencies
 
-None.
+- [danbohea.homebrew](https://galaxy.ansible.com/danbohea/homebrew)
 
 
 ## Example playbook

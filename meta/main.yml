@@ -1,4 +1,5 @@
-dependencies: []
+dependencies:
+  - danbohea.homebrew
 
 galaxy_info:
   author: danbohea
@@ -11,6 +12,7 @@ galaxy_info:
     - '10.10'
     - '10.11'
     - '10.12'
+    - '10.13'
   galaxy_tags:
     - dock
     - mac

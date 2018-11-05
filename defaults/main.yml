@@ -18,11 +18,11 @@ macos_dock_orientation: "bottom"
 # - /Users/[username]/Applications
 # 
 # Notes:
-# - Use absolute paths to files.
 # - List order affects order in Dock.
+# - Use absolute paths to files.
 # - {{ ansible_user_id }} returns the username of the *target* system
 #   (you must surround the path in quotes to use this).
-#   
+#
 # Examples:
 # - /Applications/System Preferences.app
 # - /Applications/Utilities/Activity Monitor.app
