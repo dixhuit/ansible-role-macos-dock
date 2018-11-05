@@ -8,12 +8,8 @@ matrix:
   include:
     # macOS 10.13
     - osx_image: xcode9.4
-    # macOS 10.12
-    - osx_image: xcode8.3
     # macOS 10.11
     - osx_image: xcode7.3
-    # macOS 10.10
-    - osx_image: xcode6.4
 
 install:
   # Test with a dummy app in ~/Applications
