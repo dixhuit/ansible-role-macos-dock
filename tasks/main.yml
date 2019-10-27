@@ -49,6 +49,12 @@
   register: user_applications_dir
   changed_when: false
 
+- name: Get info on /System/Applications
+  stat:
+     path: '/System/Applications'
+  register: system_applications_dir
+  changed_when: false
+
 # Lists full paths to all apps in /Applications or one further directory down.
 - name: Get list of apps in /Applications
   shell: "find /Applications -name '*.app' -maxdepth {{ macos_dock_apps_dir_maxdepth }}"
@@ -62,15 +68,30 @@
   when: user_applications_dir.stat.exists
   changed_when: false
 
+# Lists full paths to all apps in /System/Applications or one further directory down.
+- name: Get list of apps in /System/Applications
+  shell: "find /System/Applications -name '*.app' -maxdepth {{ macos_dock_apps_dir_maxdepth }}"
+  register: apps_in_system_applications
+  when: system_applications_dir.stat.exists
+  changed_when: false
+
 - name: ~/Applications exists, combine both lists of apps 
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines + apps_in_user_applications.stdout_lines }}"
   when: user_applications_dir.stat.exists
 
+- name: Reload facts to register possible changes in installed_apps
+  setup:
+
+- name: /System/Applications exists, combine both existing list and list of apps 
+  set_fact:
+    installed_apps: "{{ installed_apps | default([]) + apps_in_system_applications.stdout_lines }}"
+  when: system_applications_dir.stat.exists
+
 - name: ~/Applications doesn't exist, just use apps in /Applications
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
-  when: user_applications_dir.stat.exists == false
+  when: installed_apps is undefined
 
 - name: Remove current persistent apps from the Dock
   shell: dockutil --remove all --no-restart
