@@ -88,6 +88,9 @@
     installed_apps: "{{ installed_apps | default([]) + apps_in_system_applications.stdout_lines }}"
   when: system_applications_dir.stat.exists
 
+- name: Reload facts to register possible changes in installed_apps
+  setup:
+
 - name: ~/Applications doesn't exist, just use apps in /Applications
   set_fact:
     installed_apps: "{{ apps_in_applications.stdout_lines }}"
